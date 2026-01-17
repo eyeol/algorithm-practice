@@ -9,33 +9,24 @@ def solution():
     N = int(input())
 
     q = deque([])
+    out = []
 
     for _ in range(N):
         inst = list(input().split())
         if inst[0] == "push":
             q.append(int(inst[1]))
         elif inst[0] == "pop":
-            if q:
-                print(q.popleft())
-            else:  # stack is empty
-                print(-1)
+            out.append(str(q.popleft() if q else "-1"))
         elif inst[0] == "size":
-            print(len(q))
+            out.append(str(len(q)))
         elif inst[0] == "empty":
-            if q:
-                print(0)
-            else:
-                print(1)
+            out.append("0" if q else "1")
         elif inst[0] == "front":
-            if q:
-                print(q[0])
-            else:
-                print(-1)
+            out.append(str(q[0]) if q else "-1")
         elif inst[0] == "back":
-            if q:
-                print(q[-1])
-            else:
-                print(-1)
+            out.append(str(q[-1]) if q else "-1")
+
+    sys.stdout.write("\n".join(out))
 
 
 if __name__ == "__main__":
