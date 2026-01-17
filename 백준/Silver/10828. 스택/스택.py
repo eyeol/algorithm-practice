@@ -1,35 +1,25 @@
 import sys
-
 input = sys.stdin.readline
 
-
 def solution():
-
     N = int(input())
-
     stack = []
+    out = []
+
     for _ in range(N):
-        inst = list(input().split())
+        inst = input().split()
         if inst[0] == "push":
             stack.append(int(inst[1]))
         elif inst[0] == "pop":
-            if stack:
-                print(stack.pop(-1))
-            else:  # stack is empty
-                print(-1)
+            out.append(str(stack.pop()) if stack else "-1")
         elif inst[0] == "size":
-            print(len(stack))
+            out.append(str(len(stack)))
         elif inst[0] == "empty":
-            if stack:
-                print(0)
-            else:
-                print(1)
-        elif inst[0] == "top":
-            if stack:
-                print(stack[-1])
-            else:
-                print(-1)
+            out.append("0" if stack else "1")
+        else:  # top
+            out.append(str(stack[-1]) if stack else "-1")
 
+    sys.stdout.write("\n".join(out))
 
 if __name__ == "__main__":
     solution()
