@@ -13,7 +13,7 @@ def solution():
     # 괄호 인풋을 그래프 탐색으로 생각하면 됨
     def is_Valid(ps: str):
         
-        stack = []
+        stack = 0
 
         # ( ; White -> Gray
         # ) ; Gray -> Black
@@ -23,14 +23,14 @@ def solution():
         # White -> Gray 없이 )가 먼저 나오는 것
         for ch in ps:
             if ch == "(":
-                stack.append(ch)
+                stack += 1
             else: # ch = ")"
-                if not stack: # 스택이 비어있는데 Black으로 칠하는 상황
+                if stack == 0: # 스택이 비어있는데 Black으로 칠하는 상황
                     return False
                 else: # stack is not empty
-                    stack.pop()
+                    stack -= 1
         
-        if stack: # 모든 인풋 받은 후에 스택에 잔여 원소가 있으면 not Valid
+        if stack > 0: # 모든 인풋 받은 후에 스택에 잔여 원소가 있으면 not Valid
             return False
 
         return True
