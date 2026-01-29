@@ -1,5 +1,5 @@
 import sys
-# recursion 한도 높이기
+
 sys.setrecursionlimit(10000)
 input = sys.stdin.readline
 
@@ -33,8 +33,8 @@ def solution():
                     if field[nx][ny] == 1:
                         DFS_visit(nx, ny)
         
-        for sx in range(M): # 0부터 M-1
-            for sy in range(N): # 0부터 N-1
+        for sx in range(col_limit+1): # 0부터 M-1
+            for sy in range(row_limit+1): # 0부터 N-1
                 if field[sx][sy] == 1: # 배추가 있고 미방문이면
                     ans += 1
                     DFS_visit(sx, sy)
