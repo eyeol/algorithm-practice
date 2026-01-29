@@ -5,29 +5,21 @@ input = sys.stdin.readline
 def solution():
     N, M = map(int, input().split())
     
-    name_dict = {}
+    ddmh = []
+    bdmh = []
 
     for _ in range(N):
-        name = input().strip()
-        name_dict[name] = 1
+        ddmh.append(input().strip())
 
     for _ in range(M):
-        name = input().strip()
-        if name in name_dict.keys():
-            name_dict[name] += 1
-        else:
-            name_dict[name] = 1
+        bdmh.append(input().strip())
 
-    ans = 0
-    ans_names = []
-    for name in name_dict.keys():
-        if name_dict[name] == 2:
-            ans += 1
-            ans_names.append(name)
-    ans_names.sort()
+    ans = list(set(ddmh)&set(bdmh))
 
-    print(ans)
-    for name in ans_names:
+    ans.sort()
+
+    print(len(ans))
+    for name in ans:
         print(name)
 
 if __name__ == "__main__":
