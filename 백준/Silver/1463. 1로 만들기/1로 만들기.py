@@ -7,20 +7,21 @@ input = sys.stdin.readline
 def solution():
     N = int(input())
     
-    dp = [(N, 0)]
+    dp = [0] * (N + 1)
 
-    i = 0
-    while dp[i][0] > 1:
-        num = dp[i][0]
-        curr = dp[i][1]
-        if num % 3 == 0:
-            dp.append((num//3, curr+1))
-        if num % 2 == 0:
-            dp.append((num//2, curr+1))
-        dp.append((num-1, curr+1))
-        i += 1
+    for i in range(2, N+1):
+        v = dp[i-1] + 1
+        if i % 2 == 0:
+            t = dp[i//2] + 1
+            if t < v:
+                v = t
+        if i % 3 == 0:
+            t = dp[i//3] + 1
+            if t < v:
+                v = t
+        dp[i] = v
     
-    print(dp[i][1])
+    print(dp[N])
 
 if __name__ == "__main__":
     solution()
