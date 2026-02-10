@@ -8,39 +8,35 @@ DY = [0, 0, 1, -1]
 
 def solution():
     M, N = map(int, input().split())
-
     board = [list(map(int, input().split())) for _ in range(N)]
 
-    riped = []
-    for i in range(N): # row ; x
-        for j in range(M): # col ; y
-            if board[i][j] == 1:
-                riped.append((i, j, 0))
+    q = deque()
+    for i in range(N):
+        row = board[i]
+        for j in range(M):
+            if row[j] == 1:
+                q.append((i, j))
 
-    q = deque(riped)
-    ans = 0
-    
     while q:
-        cx, cy, t = q.popleft()
-        ans = max(ans, t)
-        for i in range(4):
-            nx, ny = cx+DX[i], cy+DY[i]
-            # 범위 확인
-            if 0<=nx<=N-1 and 0<=ny<=M-1:
-                # 익지 않은 토마토인지 확인
-                if board[nx][ny] == 0:
-                    board[nx][ny] = 1
-                    q.append((nx, ny, t+1))
+        x, y = q.popleft()
+        cur = board[x][y]
+        for k in range(4):
+            nx = x+DX[k]
+            ny = y+DY[k]
+            if 0<=nx<N and 0<=ny<M and board[nx][ny] == 0:
+                board[nx][ny] = cur + 1 # 시간을 board에 직접 입력
+                q.append((nx, ny))
     
-    not_riped = 0
-    for b in board:
-        if 0 in b:
-            not_riped = 1
-
-    if not_riped:
-        print(-1)
-    else:
-        print(ans)
+    max_val = 1
+    for row in board:
+        if 0 in row:
+            print(-1)
+            return
+        rmax = max(row)
+        if rmax > max_val:
+            max_val = rmax
+    
+    print(max_val - 1)
 
 if __name__ == "__main__":
     solution()
